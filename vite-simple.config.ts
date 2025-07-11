@@ -15,7 +15,7 @@ export default defineConfig({
 
   // Development server configuration
   server: {
-    port: 3141,
+    port: 5173,
     host: '0.0.0.0',
     cors: true,
   },
