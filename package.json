@@ -8,7 +8,10 @@
     "build": "vite build",
     "lint": "eslint src --ext .ts,.tsx",
     "preview": "vite preview",
-    "analyze": "ANALYZE=true vite build"
+    "analyze": "ANALYZE=true vite build",
+    "dev:new": "vite --port 5173",
+    "start": "vite --port 5173 --host 0.0.0.0",
+    "build:new": "vite build --outDir dist-new"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

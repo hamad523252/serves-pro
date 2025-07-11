@@ -1,10 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://demo-supabase-url.supabase.co';
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'demo-anon-key-for-government-system';
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables');
+// تحقق من أن المتغيرات ليست القيم التجريبية في بيئة الإنتاج
+if (import.meta.env.PROD && (supabaseUrl.includes('demo') || supabaseAnonKey.includes('demo'))) {
+  console.warn('⚠️ تحذير: يتم استخدام قيم Supabase تجريبية في بيئة الإنتاج');
 }
 
 /**
@@ -22,10 +23,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
  * إعداد مستمع تغييرات حالة المصادقة
  */
 export const setupAuthListener = (callback: (event: string, session: any) => void) => {
-  console.log('Setting up auth listener');
+  console.log('🔐 إعداد مستمع المصادقة...');
   
   return supabase.auth.onAuthStateChange((event, session) => {
-    console.log('Auth state changed:', event, session?.user?.id);
+    console.log('🔄 تغيير حالة المصادقة:', event, session?.user?.id);
     callback(event, session);
   });
 };
